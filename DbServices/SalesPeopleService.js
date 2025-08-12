@@ -1,4 +1,7 @@
 const SalesPeopleService = {
+    getAllSalesPeople(){
+        return db.select("*").from("salespeople");
+    },
     getSalesPeopleByEmail(db, email){
         return db.select("*").from("salespeople").where({email}).first();
     },
