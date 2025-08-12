@@ -5,6 +5,8 @@ const morgan = require("morgan");
 const app = express();
 const {NODE_ENV} = require("../../config");
 
+const LogInRouter = require("../routes/LogInRouter/LoginRouter");
+
 app.use(morgan((NODE_ENV === "production") ? "tiny" : "common"));
 app.use(express.static("public"));
 app.use(cors());
