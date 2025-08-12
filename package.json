@@ -1,4 +1,18 @@
 {
+  "name": "dealer-comp-api",
+  "version": "1.0.0",
+  "description": "Dealer comp api",
+  "main": "./src/app/server.js",
+  "scripts": {
+    "start": "node ./src/app/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./src/app/server.js",
+    "test-migrate": "postgrator --config ./test-migration.js",
+    "prod-migrate": "postgrator --config ./prod-migration.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
@@ -8,6 +22,8 @@
     "jsonwebtoken": "^9.0.2",
     "knex": "^3.1.0",
     "morgan": "^1.10.1",
-    "pg": "^8.16.3"
+    "nodemon": "^3.1.10",
+    "pg": "^8.16.3",
+    "postgrator-cli": "^9.0.1"
   }
 }
