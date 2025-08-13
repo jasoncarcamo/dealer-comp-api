@@ -1,7 +1,7 @@
 const express = require('express');
 const LogInRouter = express.Router();
-const TokenService = require("../../securityService/TokenService/TokenService");
-const PasswordHasher = require('../../securityService/PasswordHasher/PasswordHasher');
+const TokenService = require("../../securityService/TokenService");
+const PasswordHasher = require('../../securityService/PasswordHasher');
 const SalesPeopleService = require("../../DbServices/SalesPeopleService");
 
 LogInRouter

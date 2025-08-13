@@ -4,9 +4,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 const app = express();
 const {NODE_ENV} = require("../../config");
-
 const LogInRouter = require("../routes/LogInRouter/LoginRouter");
-
+const SalesPeopleRouter = require("../routes/SalesPeopleRouter/SalesPeopleRouter");
 app.use(morgan((NODE_ENV === "production") ? "tiny" : "common"));
 app.use(express.static("public"));
 app.use(cors());
@@ -14,13 +13,8 @@ app.use(express.json());
 app.use(helmet());
 
 //Authenthication routes
-app.use("/api", RegisterRouter);
 app.use("/api", LogInRouter);
-
-app.use("/api", CustomerRouter);
-app.use("/api", MenuItemsRouter);
-app.use("/api", OrdersRouter);
-app.use("/api", ToppingsRouter);
+app.use("/api", SalesPeopleRouter);
 
 app.use(function errorHandler(error, req, res, next) {
     let response;
