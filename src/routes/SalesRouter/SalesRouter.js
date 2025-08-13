@@ -1,22 +1,22 @@
 const express = require("express");
-const SalesPeopleRouter =  express.Router();
+const SalesRouter =  express.Router();
 const SalesService = require("../../DbServices/SalesService");
 
-SalesPeopleRouter
-    .route("/sales")
+SalesRouter
+    .route("/salespeople")
     .get((req, res)=>{
         const database = req.app.get("db");
 
-        SalesService.getAllsales(database)
-            .then( sales => {
-                if(sales.length){
+        SalesService.getAllSalesPeople(database)
+            .then( salesPeaple => {
+                if(salesPeaple.length){
                     return res.status(404).json({
                         error: "There are no sales people"
                     });
                 };
 
                 return res.status(200).json({
-                    sales
+                    salesPeaple
                 });
             });
     })
@@ -28,12 +28,12 @@ SalesPeopleRouter
             cars_sold
         } = req.body;
         
-        const newSale = {
+        const newSalesPerson = {
             name,
             cars_sold
         }
 
-        for(const [key, value] of Object.entries(newSale)){
+        for(const [key, value] of Object.entries(newSalesPerson)){
             if(value === undefined){
                 console.log("error:", key, value)
                 return res.status(400).json({
@@ -42,52 +42,52 @@ SalesPeopleRouter
             };
         };
         
-        SalesService.createSalesPerson(database, newSale)
-            .then( createdSale => {
+        SalesService.createSalesPerson(database, newSalesPerson)
+            .then( createdPerson => {
                 return res.status(200).json({
-                    createdSale
+                    createdPerson
                 });
             });
     });
 
-SalesPeopleRouter
-    .route("/sales/:id")
+SalesRouter
+    .route("/salespeople/:id")
     .get((req, res)=>{
         const database = req.app.get("db");
         const id = req.params.id;
 
-        SalesService.getSaleById(database, id)
-            .then( sale => {
-                if(sale.length){
+        SalesService.getSalesPeopleById(database, id)
+            .then( salesPerson => {
+                if(salesPerson.length){
                     return res.status(404).json({
                         error: "There are no sales people"
                     });
                 };
 
                 return res.status(200).json({
-                    sale
+                    salesPerson
                 });
             });
     })
     .patch((req, res) => {
         const database = req.app.get("db");
         const id = req.params.id;
-        const patchSale = {
+        const patchSalesPerson = {
             name: req.body.name,
             cars_sold: req.body.cars_sold
         };
 
-        SalesService.getSaleById(database, id)
-            .then( sale => {
-                if(sale.length){
+        SalesService.getSalesPeopleById(database, id)
+            .then( salesPerson => {
+                if(salesPerson.length){
                     return res.status(404).json({
                         error: "There are no sales people"
                     });
                 };
 
-                SalesService.patchSaleById(database, patchSale, id)
-                    .then( deleteSale => {
-                        return deleteSale;
+                SalesService.patchSalesPeople(database, patchSalesPerson, id)
+                    .then( patchedSalesPerson => {
+                        return patchedSalesPerson;
                     } );
             });
     })
@@ -95,19 +95,19 @@ SalesPeopleRouter
         const database = req.app.get("db");
         const id = req.params.id;
 
-        SalesService.getSaleById(database, id)
-            .then( sale => {
-                if(sale.length){
+        SalesService.getSalesPeopleById(database, id)
+            .then( salesPerson => {
+                if(salesPerson.length){
                     return res.status(404).json({
                         error: "There are no sales people"
                     });
                 };
 
-                SalesService.deleteSaleById(database, id)
-                    .then( deletedSale => {
-                        return deletedSale;
+                SalesService.deleteSalesPersonById(database, id)
+                    .then( patchedSalesPerson => {
+                        return patchedSalesPerson;
                     } );
             });
     });
 
-module.exports = SalesPeopleRouter;
+module.exports = SalesRouter;
