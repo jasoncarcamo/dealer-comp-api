@@ -2,8 +2,8 @@ const SalesService = {
     getAllsales(db){
         return db.select("*").from("sales");
     },
-    getAllsalesById(db, customer_id){
-        return db.select("*").from("sales").where({customer_id});
+    getAllsalesById(db, id){
+        return db.select("*").from("sales").where({id});
     },
     getsalesByMobileNumber(db, mobile_number){
         return db.select("*").from("sales").where({customer_mobile_number: mobile_number}).returning("*").then(([sales]) => sales);

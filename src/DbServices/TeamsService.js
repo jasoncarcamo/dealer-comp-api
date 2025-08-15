@@ -2,8 +2,8 @@ const TeamsService = {
     getAllTeams(db){
         return db.select("*").from("teams");
     },
-    getAllTeamsById(db, customer_id){
-        return db.select("*").from("teams").where({customer_id});
+    getAllTeamsById(db, id){
+        return db.select("*").from("teams").where({id});
     },
     getTeamById(db, id){
         return db.select("*").from("teams").where({id}).first();
@@ -12,7 +12,7 @@ const TeamsService = {
         return db.insert(newTeam).into("teams").returning("*").then(([createdTeam]) => createdTeam);
     },
     patchTeamById(db, patchTeam, id){
-        return db.update(patchTeam).from("teams").where(id).returning("*").then(([updatedTeam]) => updatedTeam);
+        return db.update(patchTeam).from("teams").where({id}).returning("*").then(([updatedTeam]) => updatedTeam);
     },
     deleteTeamById(db, id){
         return db.delete().from("teams").where({id}).returning("*").then(([deletedTeam]) => deletedTeam);

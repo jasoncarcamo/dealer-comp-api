@@ -15,9 +15,7 @@ Teams
                     });
                 };
 
-                return res.status(200).json({
-                    teams
-                });
+                return res.status(200).json(teams);
             });
     })
     .post((req, res)=>{
@@ -31,7 +29,7 @@ Teams
         
         const createTeam = {
             name,
-            cars_sold,
+            color,
             members
         }
 
@@ -46,9 +44,7 @@ Teams
         
         TeamsService.createTeam(database, createTeam)
             .then( createdTeam => {
-                return res.status(200).json({
-                    createdTeam
-                });
+                return res.status(200).json(createdTeam);
             });
     });
 
@@ -80,7 +76,7 @@ Teams
             members: req.body.members
         };
 
-        TeamsService.getAllTeamsById(database, id)
+        TeamsService.getTeamById(database, id)
             .then( team => {
                 if(team.length){
                     return res.status(404).json({
@@ -89,8 +85,8 @@ Teams
                 };
 
                 TeamsService.patchTeamById(database, patchTeam, id)
-                    .then( deletedTeam => {
-                        return deletedTeam;
+                    .then( patchedTeam => {
+                        return res.status(200).json(patchedTeam);
                     } );
             });
     })
@@ -98,7 +94,7 @@ Teams
         const database = req.app.get("db");
         const id = req.params.id;
 
-        TeamsService.getAllTeamsById(database, id)
+        TeamsService.getTeamById(database, id)
             .then( team => {
                 if(team.length){
                     return res.status(404).json({
@@ -108,7 +104,7 @@ Teams
 
                 TeamsService.deleteTeamById(database, id)
                     .then( deletedTeam => {
-                        return deletedTeam;
+                        return res.status(200).json(deletedTeam)
                     } );
             });
     });
