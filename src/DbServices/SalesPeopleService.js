@@ -15,7 +15,7 @@ const SalesPeopleService = {
         return db.update(patchSalesPeople).from("salespeople").where({id}).returning("*").then(([updatedSalesPeople]) => updatedSalesPeople);
     },
     deleteSalesPersonById(db, id){
-        return db.delete().from("salespeople").where(id);
+        return db.delete().from("salespeople").where({id}).returning("*").then(([deletedPerson]) => deletedPerson);
     }
 };
 

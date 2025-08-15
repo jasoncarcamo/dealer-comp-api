@@ -4,6 +4,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const app = express();
 const {NODE_ENV} = require("../../config");
+const InitialLoadRouter = require("../routes/InitalLoadRouter/InitalLoadRouter");
 const LogInRouter = require("../routes/LogInRouter/LoginRouter");
 const SalesPeopleRouter = require("../routes/SalesPeopleRouter/SalesPeopleRouter");
 const SalesRouter = require("../routes/SalesRouter/SalesRouter");
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(helmet());
 
 //Authenthication routes
+app.use("/api", InitialLoadRouter);
 app.use("/api", LogInRouter);
 app.use("/api", SalesPeopleRouter)
 app.use("/api", SalesRouter);
