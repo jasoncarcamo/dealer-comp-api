@@ -24,13 +24,15 @@ Teams
         const {
             name,
             color,
-            members
+            members,
+            date
         } = req.body;
         
         const createTeam = {
             name,
             color,
-            members
+            members,
+            date
         }
 
         for(const [key, value] of Object.entries(createTeam)){
