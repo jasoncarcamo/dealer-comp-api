@@ -8,15 +8,15 @@ SalesRouter
         const database = req.app.get("db");
 
         SalesService.getAllsales(database)
-            .then( sales => {
-                if(sales.length){
+            .then( salesData => {
+                if(salesData.length){
                     return res.status(404).json({
-                        error: "There are no sales people"
+                        error: "There are no sales"
                     });
                 };
 
                 return res.status(200).json({
-                    sales
+                    salesData
                 });
             });
     })
@@ -25,13 +25,17 @@ SalesRouter
 
         const {
             name,
+            date,
+            team,
             cars_sold
         } = req.body;
         
         const createSale = {
             name,
+            date,
+            team,
             cars_sold
-        }
+        };
 
         for(const [key, value] of Object.entries(createSale)){
             if(value === undefined){
@@ -74,6 +78,8 @@ SalesRouter
         const id = req.params.id;
         const patchSale = {
             name: req.body.name,
+            date: req.params.date,
+            team: req.params.team,
             cars_sold: req.body.cars_sold
         };
 
