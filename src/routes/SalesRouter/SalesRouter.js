@@ -24,17 +24,13 @@ SalesRouter
         const database = req.app.get("db");
 
         const {
-            name,
             date,
-            team,
-            cars_sold
+            sales
         } = req.body;
         
         const createSale = {
-            name,
             date,
-            team,
-            cars_sold
+            sales
         };
 
         for(const [key, value] of Object.entries(createSale)){
@@ -60,7 +56,7 @@ SalesRouter
         const database = req.app.get("db");
         const id = req.params.id;
 
-        SalesService.getAllsalesById(database, id)
+        SalesService.getSaleById(database, id)
             .then( sales => {
                 if(sales.length){
                     return res.status(404).json({
@@ -77,23 +73,24 @@ SalesRouter
         const database = req.app.get("db");
         const id = req.params.id;
         const patchSale = {
-            name: req.body.name,
-            date: req.params.date,
-            team: req.params.team,
-            cars_sold: req.body.cars_sold
+            sales: req.body.sales,
+            date: req.body.date,
         };
+
+        patchSale.id = id;
 
         SalesService.getSaleById(database, id)
             .then( sale => {
-                if(sale.length){
+                if(sale.length === 0){
                     return res.status(404).json({
-                        error: "There are no sales people"
+                        error: "Sale not found"
                     });
                 };
-
+                console.log("Line 87", patchSale)
                 SalesService.patchSaleById(database, patchSale, id)
-                    .then( deletedSale => {
-                        return deletedSale;
+                    .then( patchedSale => {
+                        console.log("Line 92", patchedSale)
+                        return res.status(200).json(patchSale);
                     } );
             });
     })
@@ -110,7 +107,7 @@ SalesRouter
                     });
                 };
 
-                SalesService.deleteSalesPersonById(database, id)
+                SalesService.deleteSaleById(database, id)
                     .then( deletedSale => {
                         return deletedSale;
                     } );

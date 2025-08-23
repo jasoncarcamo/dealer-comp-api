@@ -15,7 +15,8 @@ const SalesService = {
         return db.insert(newSale).into("sales").returning("*").then(([createdSale]) => createdSale);
     },
     patchSaleById(db, patchSale, id){
-        return db.update(patchSale).from("sales").where(id).returning("*").then(([updatedSale]) => updatedSale);
+        console.log(patchSale, id)
+        return db.update(patchSale).from("sales").where({id}).returning("*").then(([updatedSale]) => updatedSale);
     },
     deleteSaleById(db, id){
         return db.delete().from("sales").where({id}).returning("*").then(([deletedSale]) => deletedSale);
