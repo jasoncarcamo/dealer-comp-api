@@ -9,6 +9,7 @@ const LogInRouter = require("../routes/LogInRouter/LoginRouter");
 const SalesPeopleRouter = require("../routes/SalesPeopleRouter/SalesPeopleRouter");
 const SalesRouter = require("../routes/SalesRouter/SalesRouter");
 const TeamsRouter = require("../routes/TeamsRouter/TeamsRouter");
+const BonusRouter = require("../routes/BonusRouter/BonusRouter");
 
 app.use(morgan((NODE_ENV === "production") ? "tiny" : "common"));
 app.use(express.static("public"));
@@ -22,6 +23,7 @@ app.use("/api", LogInRouter);
 app.use("/api", SalesPeopleRouter)
 app.use("/api", SalesRouter);
 app.use("/api", TeamsRouter);
+app.use("/api", BonusRouter);
 
 app.use(function errorHandler(error, req, res, next) {
     let response;
