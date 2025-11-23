@@ -31,7 +31,6 @@ BonusRouter
 
         for(const [key, value] of Object.entries(newBonus)){
             if(value === undefined){
-                console.log("error:", key, value)
                 return res.status(400).json({
                     error: `${key} is missing`
                 });

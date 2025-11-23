@@ -35,7 +35,6 @@ SalesPeopleRouter
 
         for(const [key, value] of Object.entries(newSalesPerson)){
             if(value === undefined){
-                console.log("error:", key, value)
                 return res.status(400).json({
                     error: `${key.split("_").join(" ")} can only have a value or be null`
                 });
@@ -103,7 +102,6 @@ SalesPeopleRouter
 
                 SalesPeopleService.deleteSalesPersonById(database, id)
                     .then( deletedPerson => {
-                        console.log(deletedPerson)
                         return res.status(200).json(deletedPerson);
                     } );
             });

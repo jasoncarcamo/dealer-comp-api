@@ -37,7 +37,6 @@ Teams
 
         for(const [key, value] of Object.entries(createTeam)){
             if(value === undefined){
-                console.log("error:", key, value)
                 return res.status(400).json({
                     error: `${key.split("_").join(" ")} can only have a value or be null`
                 });

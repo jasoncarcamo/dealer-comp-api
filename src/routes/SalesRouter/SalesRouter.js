@@ -35,7 +35,6 @@ SalesRouter
 
         for(const [key, value] of Object.entries(createSale)){
             if(value === undefined){
-                console.log("error:", key, value)
                 return res.status(400).json({
                     error: `${key.split("_").join(" ")} can only have a value or be null`
                 });
@@ -86,10 +85,9 @@ SalesRouter
                         error: "Sale not found"
                     });
                 };
-                console.log("Line 87", patchSale)
+
                 SalesService.patchSaleById(database, patchSale, id)
                     .then( patchedSale => {
-                        console.log("Line 92", patchedSale)
                         return res.status(200).json(patchSale);
                     } );
             });
@@ -100,7 +98,6 @@ SalesRouter
 
         SalesService.getSalesPeopleById(database, id)
             .then( sale => {
-                console.log(sale)
                 if(sale.length){
                     return res.status(404).json({
                         error: "Salesperson not found"
