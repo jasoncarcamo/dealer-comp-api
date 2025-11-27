@@ -3,6 +3,7 @@ const InitialLoadRouter =  express.Router();
 const SalesPeopleService = require("../../DbServices/SalesPeopleService");
 const SalesService = require("../../DbServices/SalesService");
 const TeamsService = require("../../DbServices/TeamsService");
+const BonusServices = require("../../DbServices/BonusServices");
 
 InitialLoadRouter
     .route("/load")
@@ -16,11 +17,16 @@ InitialLoadRouter
                          TeamsService.getAllTeams(database)
                             .then( teams => {
 
-                                return res.status(200).json({
-                                    people,
-                                    salesData,
-                                    teams
-                                });
+                                BonusServices.getAllbonuses(database)
+                                .then( bonuses => {
+                                    return res.status(200).json({
+                                        people,
+                                        salesData,
+                                        teams,
+                                        bonuses
+                                    });
+                                })
+                
                             });
                     });
             })

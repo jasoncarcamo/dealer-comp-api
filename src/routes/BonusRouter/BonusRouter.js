@@ -26,7 +26,8 @@ BonusRouter
             start_date: req.body.start_date,
             end_date: req.body.end_date,
             amount: req.body.amount,
-            criteria: req.body.criteria
+            criteria: req.body.criteria,
+            date_created: req.body.date_created
         };
 
         for(const [key, value] of Object.entries(newBonus)){
@@ -64,7 +65,8 @@ BonusRouter
         const database = req.app.get("db");
         const id = req.params.id;
         const patchBonus = {
-            start_date: req.bofy.start_date,
+            id: req.params.id,
+            start_date: req.body.start_date,
             end_date: req.body.end_date,
             amount: req.body.amount,
             criteria: req.body.criteria
@@ -96,8 +98,10 @@ BonusRouter
                     });
                 };
 
-                BonusServices.deleteSaleById(database, id)
-                    .then( deletedBonus => {deletedBonus} );
+                BonusServices.deleteBonusById(database, id)
+                    .then( deletedBonus => {
+                        return res.status(200).json({deletedBonus})
+                    });
             });
     });
 

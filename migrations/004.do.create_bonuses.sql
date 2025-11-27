@@ -3,5 +3,6 @@ CREATE TABLE bonuses(
     start_date TIMESTAMP,
     end_date TIMESTAMP,
     criteria TEXT,
-    amount BIGINT
+    amount BIGINT,
+    date_created TIMESTAMP
 );
